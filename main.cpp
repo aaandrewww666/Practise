@@ -89,7 +89,13 @@ private:
     }
     
     bool isDeviceSuitable(VkPhysicalDevice device) {
-        return true;
+        VkPhysicalDeviceProperties deviceProperties;
+        VkPhysicalDeviceFeatures deviceFeatures;
+        vkGetPhysicalDeviceProperties(device, &deviceProperties);
+        vkGetPhysicalDeviceFeatures(device, &deviceFeatures);
+
+        return deviceProperties.deviceType == VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU &&
+            deviceFeatures.geometryShader;
     }
 
     void mainLoop() {
