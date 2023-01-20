@@ -132,6 +132,8 @@ private:
     }
 
     void cleanup() {
+        vkDestroyDevice(device, nullptr);
+
         if (enableValidationLayers) {
             DestroyDebugUtilsMessengerEXT(instance, debugMessenger, nullptr);
         }
@@ -139,9 +141,6 @@ private:
         vkDestroySurfaceKHR(instance, surface, nullptr);
         vkDestroyInstance(instance, nullptr);
 
-        vkDestroyDevice(device, nullptr);
-
-        vkDestroyInstance(instance, nullptr);
 
         glfwDestroyWindow(window);
 
