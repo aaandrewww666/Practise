@@ -58,7 +58,7 @@ public:
 private:
     VkDevice device;
     GLFWwindow* window;
-
+    VkQueue graphicsQueue;
     VkInstance instance;
     VkDebugUtilsMessengerEXT debugMessenger;
 
@@ -113,6 +113,8 @@ private:
         if (vkCreateDevice(physicalDevice, &createInfo, nullptr, &device) != VK_SUCCESS) {
             throw std::runtime_error("failed to create logical device!");
         }
+
+        vkGetDeviceQueue(device, indices.graphicsFamily.value(), 0, &graphicsQueue);
     }
 
     void mainLoop() {
